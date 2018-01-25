@@ -10,7 +10,7 @@ screen = pygame.display.set_mode((displayWidth, displayHeight))
 """ --------------------------------------------------- """
 
 """ -------------- Setting up fps and clock -------------- """
-FPS = 120
+FPS = 60
 REFRESH = pygame.USEREVENT + 1
 pygame.time.set_timer(REFRESH, 1000 // FPS)
 
@@ -64,13 +64,13 @@ class candle:
 		self.imgRect = self.img.get_rect()
 		self.x = randint(75, 725)
 		self.y = randint(75, 475)
-		self.timer = 1000 # 10 seconds
+		self.timer = 600 # 10 seconds
 
 	def spawn(self):
 		if self.timer == 0:
 			self.x = randint(75, 725)
 			self.y = randint(75, 475)
-			self.timer = 1000
+			self.timer = 600
 		else:
 			self.timer -= 1
 
@@ -87,6 +87,7 @@ def run():
 	direction = "up"
 
 	pygame.event.set_blocked(pygame.MOUSEMOTION)
+	clock.tick(60)
 
 	while True:
 		#for event in pygame.event.get():
@@ -99,24 +100,25 @@ def run():
 
 		if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
 			deltaPosX = 0
-			deltaPosY = -3
+			deltaPosY = -5
 			direction = "up"
 		elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
 			deltaPosX = 0
-			deltaPosY = 3
+			deltaPosY = 5
 			direction = "down"
 		elif event.type == pygame.KEYDOWN and event.key == pygame.K_a:
-			deltaPosX = -3
+			deltaPosX = -5
 			deltaPosY = 0
 			direction = "left"
 		elif event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-			deltaPosX = 3
+			deltaPosX = 5
 			deltaPosY = 0
 			direction = "right"
 
 		limitBorders()
 
 		candle.spawn()
+		print(candle.timer)
 		player.update(deltaPosX, deltaPosY, direction)
 		pygame.display.update()
 """ ------------------------------------------- """
