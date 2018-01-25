@@ -1,4 +1,5 @@
 import pygame, sys, glob, os
+from random import randint
 
 pygame.init()
 
@@ -55,11 +56,37 @@ class player:
 		screen.blit(self.img, (self.x, self.y))
 """ -------------------------------------------------------------------------------------------------------- """
 
+""" --------------------------------------------- Candle Class --------------------------------------------- """
+class candle:
+	def __init__(self):
+		self.anim = glob.glob(os.path.join("images", "candle.png"))  # 0 = down, 1 = left, 2 = right, 3 = up
+		self.img = pygame.image.load(self.anim[0])
+		self.imgRect = self.img.get_rect()
+		self.x = randint(75, 725)
+		self.y = randint(75, 475)
+		self.timer = 1000 # 10 seconds
+
+	def spawn(self):
+		if self.timer == 0:
+			self.x = randint(75, 725)
+			self.y = randint(75, 475)
+			self.timer = 1000
+		else:
+			self.timer -= 1
+
+		self.imgRect = self.img.get_rect()
+		screen.blit(self.img, (self.x, self.y))
+""" -------------------------------------------------------------------------------------------------------- """
+
+
+
 """ ---------------- Game Loop ---------------- """
 def run():
 	deltaPosX = 0
 	deltaPosY = 0
 	direction = "up"
+
+	pygame.event.set_blocked(pygame.MOUSEMOTION)
 
 	while True:
 		#for event in pygame.event.get():
@@ -89,6 +116,7 @@ def run():
 
 		limitBorders()
 
+		candle.spawn()
 		player.update(deltaPosX, deltaPosY, direction)
 		pygame.display.update()
 """ ------------------------------------------- """
@@ -122,6 +150,7 @@ def limitBorders():
 """ ------------------------------------------------ """
 
 player = player()
+candle = candle()
 run()
 pygame.quit()
 sys.exit()
