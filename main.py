@@ -9,7 +9,7 @@ screen = pygame.display.set_mode((displayWidth, displayHeight))
 """ --------------------------------------------------- """
 
 """ -------------- Setting up fps and clock -------------- """
-FPS = 60
+FPS = 120
 REFRESH = pygame.USEREVENT + 1
 pygame.time.set_timer(REFRESH, 1000 // FPS)
 
@@ -72,18 +72,18 @@ def run():
 
 		if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
 			deltaPosX = 0
-			deltaPosY = -5
+			deltaPosY = -3
 			direction = "up"
 		elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
 			deltaPosX = 0
-			deltaPosY = 5
+			deltaPosY = 3
 			direction = "down"
 		elif event.type == pygame.KEYDOWN and event.key == pygame.K_a:
-			deltaPosX = -5
+			deltaPosX = -3
 			deltaPosY = 0
 			direction = "left"
 		elif event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-			deltaPosX = 5
+			deltaPosX = 3
 			deltaPosY = 0
 			direction = "right"
 
